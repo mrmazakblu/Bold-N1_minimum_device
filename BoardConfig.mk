@@ -1,15 +1,17 @@
 # Device path
 LOCAL_PATH := device/BLU/N0030WW
 
+#include build/make/target/board/generic_arm64_ab/BoardConfig.mk
+ALLOW_MISSING_DEPENDENCIES := true
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a53
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
@@ -31,12 +33,11 @@ BOARD_MKBOOTIMG_ARGS := --base 0x40078000 --ramdisk_offset 0x14f88000 --second_o
 # uncomment the following lines
 #TARGET_KERNEL_SOURCE := kernel/blu/N0030WW
 #TARGET_KERNEL_CONFIG := k71v1_64_bsp_defconfig
-#TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
-#BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+#TARGET_KERNEL_CROSS_COMPILE := aarch64-linux-android-
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 # end of commented lines
-
 #for now lets use prebuilt
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
 
 # system.prop
 TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
