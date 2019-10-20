@@ -31,9 +31,11 @@ BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS := --base 0x40078000 --ramdisk_offset 0x14f88000 --second_offset 0x00f00000 --tags_offset 0x13f88000
 #in case we want to build kernel from source
 # uncomment the following lines
-#TARGET_KERNEL_SOURCE := kernel/blu/N0030WW
+#TARGET_KERNEL_SOURCE := kernel/BLU/N0030WW
 #TARGET_KERNEL_CONFIG := k71v1_64_bsp_defconfig
-#TARGET_KERNEL_CROSS_COMPILE := aarch64-linux-android-
+#TARGET_KERNEL_CONFIG := bold-n1_defconfig
+#TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+#TARGET_KERNEL_ARCH := arm64
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 # end of commented lines
 #for now lets use prebuilt
