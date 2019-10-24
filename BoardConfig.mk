@@ -43,6 +43,7 @@ TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
 else
 TARGET_KERNEL_CONFIG := bold-n1_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+#BOARD_KERNEL_IMAGE_NAME := Image.gz
 endif
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/kernel
 # end of commented lines
