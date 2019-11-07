@@ -1,7 +1,7 @@
-# Device path
-LOCAL_PATH := device/BLU/bold-n1
+DEVICE_PATH := device/BLU/BoldN1
 
 ALLOW_MISSING_DEPENDENCIES := true
+
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a

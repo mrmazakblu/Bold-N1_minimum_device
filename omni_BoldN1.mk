@@ -1,14 +1,11 @@
-# Release name
-PRODUCT_RELEASE_NAME := bold_n1
-
 $(call inherit-product, build/target/product/embedded.mk)
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := N0030WW
-PRODUCT_NAME := omni_N0030WW
+PRODUCT_DEVICE := BoldN1
+PRODUCT_NAME := omni_BoldN1
 PRODUCT_BRAND := BLU
 PRODUCT_MODEL := BOLD N1
 PRODUCT_MANUFACTURER := BLU
