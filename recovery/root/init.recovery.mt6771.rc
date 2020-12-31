@@ -1,5 +1,7 @@
 import /init.recovery.microtrust.rc
 import /init.recovery.prepdecrypt.rc
+import /init.recovery.microtrust.init_thh.rc
+import /init-vendor.microtrust.hardware.thh@2.0-service.rc
 
 on boot
     start logging
