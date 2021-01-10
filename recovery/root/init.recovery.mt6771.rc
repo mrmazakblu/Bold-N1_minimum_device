@@ -1,17 +1,4 @@
 import /init.recovery.microtrust.rc
-import /init.recovery.prepdecrypt.rc
-import /init.recovery.microtrust.init_thh.rc
-import /init-vendor.microtrust.hardware.thh@2.0-service.rc
-
-on boot
-    start logging
-
-on property:twrp.decrypt.done=true
-    stop teei_daemon
-    stop keymaster-3-0
-    stop gatekeeper-1-0
-    stop servicemanager
-    stop hwservicemanager
 
 on boot
     # Enable Power modes and set the CPU Freq Sampling rates
@@ -40,7 +27,6 @@ on boot
     write /sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq 300000
     write /sys/devices/system/cpu/cpu7/cpufreq/scaling_min_freq 300000
     setprop recovery.perf.mode 0
-
 
 on property:recovery.perf.mode=1
     write /sys/devices/system/cpu/cpu1/online 1
@@ -95,43 +81,36 @@ on post-fs
 on fs
     install_keyring
 on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
-    start prepdecrypt
+    setprop crypto.ready 1
 
-service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
-    user root
-    group root
-    disabled
-    seclabel u:r:recovery:s0
-
+on property:hwservicemanager.ready=true
+    start keymaster-3-0
+    start gatekeeper-1-0
+    
 service keymaster-3-0 /vendor/bin/hw/android.hardware.keymaster@3.0-service
     user root
     group root drmrpc
     disabled
     seclabel u:r:recovery:s0
-
-service logging /system/bin/logging.sh
+    
+service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
-
-on property:hwservicemanager.ready=true
-    start keymaster-3-0
-    start gatekeeper-1-0
-
-
+    
 on property:ro.crypto.state=unsupported
     stop teei_daemon
     stop keymaster-3-0
     stop gatekeeper-1-0
-    stop servicemanager
-    stop hwservicemanager
 
 on property:ro.crypto.state=unencrypted
     stop teei_daemon
     stop keymaster-3-0
     stop gatekeeper-1-0
-    stop servicemanager
-    stop hwservicemanager
 
+on property:twrp.decrypt.done=true
+    stop teei_daemon
+    stop keymaster-3-0
+    stop gatekeeper-1-0
 

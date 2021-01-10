@@ -25,7 +25,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 $(call inherit-product, vendor/omni/config/common.mk)
 
 # COPY PREPDECRYPT FROM QCOM-TWRP_COMMON
-PRODUCT_COPY_FILES += device/qcom/twrp-common/crypto/system/bin/prepdecrypt.sh:recovery/root/system/bin/prepdecrypt.sh
+# PRODUCT_COPY_FILES += device/qcom/twrp-common/crypto/system/bin/prepdecrypt.sh:recovery/root/system/bin/prepdecrypt.sh
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := BoldN1
