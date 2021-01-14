@@ -77,15 +77,31 @@ on post-fs
     symlink /dev/block/platform/bootdevice/by-name/preloader_b /dev/block/platform/bootdevice/by-name/preloader_emmc_b
     symlink /dev/block/platform/bootdevice/by-name/preloader_a /dev/block/platform/bootdevice/by-name/preloader_ufs_a
     symlink /dev/block/platform/bootdevice/by-name/preloader_b /dev/block/platform/bootdevice/by-name/preloader_ufs_b
-
-on fs
-    install_keyring
-on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
+on property:ro.crypto.state=encrypted && property:ro.crypto.type=block
     setprop crypto.ready 1
 
 on property:hwservicemanager.ready=true
+    sysclktz 0
+    start capi-2-0
+    start hidl_memory
     start keymaster-3-0
-    start gatekeeper-1-0
+    start keymaster_attestation-1-1
+
+    # Make sure we have the device encryption key
+    start vold
+    installkey /data
+    init_user0
+##############################
+##############################
+on init
+# One shot invocation to deal with encrypted volume.
+on defaultcrypto
+    exec - root -- /system/bin/vdc --wait cryptfs mountdefaultencrypted
+    # vold will set vold.decrypt to trigger_restart_framework (default
+    # encryption) or trigger_restart_min_framework (other encryption)
+
+##############################
+##############################
     
 service keymaster-3-0 /vendor/bin/hw/android.hardware.keymaster@3.0-service
     user root
@@ -93,12 +109,19 @@ service keymaster-3-0 /vendor/bin/hw/android.hardware.keymaster@3.0-service
     disabled
     seclabel u:r:recovery:s0
     
-service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+service capi-2-0 /vendor/bin/hw/vendor.microtrust.hardware.capi@2.0-service
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
-    
+
+service keymaster_attestation-1-1 /vendor/bin/hw/vendor.mediatek.hardware.keymaster_attestation@1.1-service
+    interface vendor.mediatek.hardware.keymaster_attestation@1.1::IKeymasterDevice default
+    class hal
+    user root
+    group root
+    disabled
+            
 on property:ro.crypto.state=unsupported
     stop teei_daemon
     stop keymaster-3-0
