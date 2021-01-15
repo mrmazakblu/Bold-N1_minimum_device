@@ -4,7 +4,6 @@
 /system_image	emmc	/dev/block/platform/bootdevice/by-name/system
 /vendor         ext4    /dev/block/platform/bootdevice/by-name/vendor flags=backup=1
 /vendor_image   emmc    /dev/block/platform/bootdevice/by-name/vendor 
-/data		ext4	/dev/block/platform/bootdevice/by-name/userdata	flags=encryptable=/dev/block/platform/bootdevice/by-name/metadata
 /cache		ext4	/dev/block/platform/bootdevice/by-name/cache
 /misc		emmc	/dev/block/platform/bootdevice/by-name/misc
 /metadata   emmc    /dev/block/platform/bootdevice/by-name/metadata
